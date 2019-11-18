@@ -6,6 +6,12 @@ https://becominghuman.ai/getting-mario-back-into-the-gym-setting-up-super-mario-
 
 https://www.geeksforgeeks.org/q-learning-in-python/
 
+https://pythonprogramming.net/q-learning-reinforcement-learning-python-tutorial/
+
+https://github.com/vivek3141/super-mario-neat
+
+--> https://www.statworx.com/at/blog/using-reinforcement-learning-to-play-super-mario-bros-on-nes-using-tensorflow/
+
 Variables relevantes
 Target: 
     flag_get
