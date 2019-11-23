@@ -20,7 +20,7 @@ actions = env.action_space.n
 agent = DQNAgent(states=states, actions=actions, max_memory=100000, double_q=True)
 
 # Episodes
-episodes = 10000
+episodes = 1
 rewards = []
 
 # Timing
@@ -84,6 +84,7 @@ for e in range(episodes):
                                        r=np.mean(rewards[-100:])))
         start = time.time()
         step = agent.step
+        raise Exception("aqui")
 
 # Save rewards
 np.save('rewards.npy', rewards)

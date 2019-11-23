@@ -1,11 +1,9 @@
-import time
+import os
 import random
 import numpy as np
 from collections import deque
 import tensorflow as tf
-# tf.disable_v2_behavior()
 tf.compat.v1.disable_eager_execution()
-from matplotlib import pyplot as plt
 
 
 class DQNAgent:
@@ -17,7 +15,6 @@ class DQNAgent:
         self.build_model()
         self.saver = tf.compat.v1.train.Saver(max_to_keep=10)
         self.session.run(tf.compat.v1.global_variables_initializer())
-        self.saver = tf.compat.v1.train.Saver()
         self.memory = deque(maxlen=max_memory)
         self.eps = 1
         self.eps_decay = 0.99999975
@@ -31,6 +28,7 @@ class DQNAgent:
         self.learn_step = 0
         self.save_each = 500000
         self.double_q = double_q
+        self.load_model()
 
     def build_model(self):
         """ Model builder function """
@@ -126,7 +124,13 @@ class DQNAgent:
         batch = random.sample(self.memory, self.batch_size)
         state, next_state, action, reward, done = map(np.array, zip(*batch))
         # Get next q values from target network
+        # try:
+        next_state = next_state.reshape(1, 240, 256, 3)
         next_q = self.predict('target', next_state)
+        # except ValueError:
+        #     print("INPUT ARRAY MISBEHAVE")
+        #     print(next_state)
+        #     raise AttributeError("mal")
         # Calculate discounted future reward
         if self.double_q:
             q = self.predict('online', next_state)
@@ -144,3 +148,18 @@ class DQNAgent:
         self.learn_step = 0
         # Write
         self.writer.add_summary(summary, self.step)
+        return True
+
+    def load_model(self):
+        try:
+            ckpt = tf.train.get_checkpoint_state(checkpoint_dir="./models")
+            print(ckpt.model_checkpoint_path)
+            if ckpt and ckpt.model_checkpoint_path:
+                self.saver.restore(self.session, ckpt.model_checkpoint_path)
+                print('Restored!')
+                for filename in os.listdir("./models"):
+                    file_path = os.path.join("./models", filename)
+                    os.remove(file_path)
+                self.save_model()
+        except AttributeError:
+            pass
