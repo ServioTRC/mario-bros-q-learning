@@ -6,7 +6,7 @@ import gym_super_mario_bros
 from agent import DQNAgent
 
 # Build env
-env = gym_super_mario_bros.make('SuperMarioBros-1-1-v0')
+env = gym_super_mario_bros.make('SuperMarioBros-1-2-v0')
 env = JoypadSpace(env, SIMPLE_MOVEMENT)
 
 # Parameters
@@ -18,6 +18,7 @@ agent = DQNAgent(states=states, actions=actions, max_memory=100000, double_q=Tru
 
 # Episodes
 episodes = 10000
+rewards = []
 
 # Timing
 start = time.time()
@@ -38,12 +39,12 @@ for e in range(episodes):
         while True:
 
             # Show env
-            # if e % 100 == 0:
-            #     env.render()
+            env.render()
 
             # Run agent
             action = agent.run(state=state)
-
+            print(SIMPLE_MOVEMENT[action])
+            time.sleep(1)
             # Perform action
             next_state, reward, done, info = env.step(action=action)
 
@@ -66,6 +67,7 @@ for e in range(episodes):
             if done or info['flag_get']:
                 break
 
+        rewards.append((total_reward / iter))
         # Print
         print('Episode {e} - +'
               'Frame {f} - +'
@@ -80,8 +82,11 @@ for e in range(episodes):
         step = agent.step
         agent.save_model()
         # Storing rewards
-        if e % 10 == 0:
+        if e > 0 and e % 10 == 0:
             with open("rewards.txt", 'a+') as rewards_file:
-                rewards_file.write(str(total_reward / iter)+"\n")
+                accu = 0.0
+                for ele in rewards:
+                    accu += ele
+                rewards_file.write(f"{accu/len(rewards)}\n")
     except AttributeError:
         pass

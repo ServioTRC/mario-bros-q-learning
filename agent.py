@@ -124,14 +124,8 @@ class DQNAgent:
         batch = random.sample(self.memory, self.batch_size)
         state, next_state, action, reward, done = map(np.array, zip(*batch))
         # Get next q values from target network
-        # try:
         next_state = next_state.reshape(1, 240, 256, 3)
         next_q = self.predict('target', next_state)
-        # except ValueError:
-        #     print("INPUT ARRAY MISBEHAVE")
-        #     print(next_state)
-        #     raise AttributeError("mal")
-        # Calculate discounted future reward
         if self.double_q:
             q = self.predict('online', next_state)
             a = np.argmax(q, axis=1)
