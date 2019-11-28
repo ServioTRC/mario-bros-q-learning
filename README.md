@@ -34,3 +34,7 @@ https://github.com/ServioTRC/mario-bros-q-learning
 Youtube Link:
 https://youtu.be/uTJgatjsPJQ 
 
+## A pre-trained network could be found here:
+https://drive.google.com/drive/folders/1KA6qJkfhGNzayik8aVm118JGe8huwXIy?usp=sharing
+
+Just download and locate it in the folder named `models` in the root directory.
