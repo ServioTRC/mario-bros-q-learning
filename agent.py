@@ -97,6 +97,7 @@ class DQNAgent:
         else:
             # Policy action
             q = self.predict('online', np.expand_dims(state, 0))
+            print(q)
             action = np.argmax(q)
         # Decrease eps
         self.eps *= self.eps_decay

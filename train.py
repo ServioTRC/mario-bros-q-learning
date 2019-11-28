@@ -17,7 +17,7 @@ actions = env.action_space.n
 agent = DQNAgent(states=states, actions=actions, max_memory=100000, double_q=True)
 
 # Episodes
-episodes = 10000
+episodes = 9
 rewards = []
 
 # Timing
@@ -42,9 +42,11 @@ for e in range(episodes):
             env.render()
 
             # Run agent
+            print(SIMPLE_MOVEMENT)
             action = agent.run(state=state)
             print(SIMPLE_MOVEMENT[action])
-            time.sleep(1)
+            time.sleep(10)
+
             # Perform action
             next_state, reward, done, info = env.step(action=action)
 

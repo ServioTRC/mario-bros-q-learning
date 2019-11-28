@@ -1,6 +1,8 @@
 # mario-bros-q-learning
 Mario Bros Q Leaning project
 
+# Dependencies
+Python 3
 pip3 install gym-super-mario-bros
 pip3 install tensorflow
 
@@ -23,4 +25,12 @@ https://pythonprogramming.net/q-learning-reinforcement-learning-python-tutorial/
 https://github.com/vivek3141/super-mario-neat
 
 https://www.statworx.com/at/blog/using-reinforcement-learning-to-play-super-mario-bros-on-nes-using-tensorflow/
+
+
+GitHub Repository:
+https://github.com/ServioTRC/mario-bros-q-learning
+
+
+Youtube Link:
+https://youtu.be/uTJgatjsPJQ 
 
